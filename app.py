@@ -2,10 +2,9 @@ from flask import Flask, request, render_template_string
 import random
 import os
 
-# Rename the Flask app instance for clarity
-rps_app = Flask(__name__)
+app = Flask(__name__)
 
-@rps_app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     choices = ['Rock', 'Paper', 'Scissors']
     player_choice = None
@@ -16,12 +15,10 @@ def index():
         player_choice = request.form['choice']
         result = determine_winner(player_choice, computer_choice)
 
-    rps_app.logger.debug(f"Player choice: {player_choice}, Computer choice: {computer_choice}, Result: {result}")
-
     return render_template_string('''
         <!doctype html>
         <html>
-        <head><title>Ibrahim Cisse's Rock, Paper, Scissors</title></head>
+        <head><title>Rock, Paper, Scissors</title></head>
         <body>
             <h1>Rock, Paper, Scissors</h1>
             <form method="post">
@@ -50,9 +47,8 @@ def determine_winner(player, computer):
          (player == 'Scissors' and computer == 'Paper'):
         return 'You win!'
     else:
-        return 'Shame you lost to a computer AI will now become sentient!'
+        return 'You lost!'
 
 if __name__ == '__main__':
-    # Set the port to 5000
     port = int(os.environ.get('PORT', 5000))
-    rps_app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(debug=True, host='0.0.0.0', port=port)
