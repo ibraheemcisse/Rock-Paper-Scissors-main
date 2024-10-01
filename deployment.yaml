@@ -1,20 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rock-paper-scissors-deployment
+  name: myapp
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: rock-paper-scissors
+      app: myapp
   template:
     metadata:
       labels:
-        app: rock-paper-scissors
+        app: myapp
     spec:
       containers:
-      - name: rock-paper-scissors
-        image: 192.168.49.2/rock-paper-scissors-app:latest
+      - name: myapp
+        image: ibraheemcisse/dockerfile:latest  # Replace with your Docker image
         ports:
         - containerPort: 80
-        imagePullPolicy: Always

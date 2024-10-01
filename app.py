@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template_string
 import random
-import os
 
 app = Flask(__name__)
 
@@ -8,14 +7,15 @@ app = Flask(__name__)
 def index():
     choices = ['Rock', 'Paper', 'Scissors']
     player_choice = None
-    computer_choice = random.choice(choices)
+    computer_choice = None
     result = None
 
     if request.method == 'POST':
         player_choice = request.form['choice']
+        computer_choice = random.choice(choices)
         result = determine_winner(player_choice, computer_choice)
 
-    return render_template_string('''
+    return render_template_string(''' 
         <!doctype html>
         <html>
         <head><title>Rock, Paper, Scissors</title></head>
@@ -41,7 +41,7 @@ def index():
 
 def determine_winner(player, computer):
     if player == computer:
-        return 'It\'s a tie!'
+        return "It's a tie!"
     elif (player == 'Rock' and computer == 'Scissors') or \
          (player == 'Paper' and computer == 'Rock') or \
          (player == 'Scissors' and computer == 'Paper'):
@@ -50,5 +50,4 @@ def determine_winner(player, computer):
         return 'You lost!'
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(debug=True, host='0.0.0.0', port=80)  # Change to port 80
