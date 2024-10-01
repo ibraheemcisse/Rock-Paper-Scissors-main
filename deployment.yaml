@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rock-paper-scissors-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rock-paper-scissors
+  template:
+    metadata:
+      labels:
+        app: rock-paper-scissors
+    spec:
+      containers:
+      - name: rock-paper-scissors
+        image: 192.168.49.2/rock-paper-scissors-app:latest
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
